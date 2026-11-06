@@ -17,7 +17,12 @@ window.SJ_REGISTRY = {
    "mainPurps": "업무시설",
    "etcPurps": "업무시설",
    "buildings": 2,
-   "pk": 12351100260295
+   "pk": 12351100260295,
+   "bjdongCd": "10900",
+   "platGbCd": "0",
+   "bun": "0033",
+   "ji": "0004",
+   "fetchedAt": "2026-11-06T06:54:43.668Z"
   }
  },
  "F010": {
@@ -36,7 +41,12 @@ window.SJ_REGISTRY = {
    "mainPurps": "업무시설",
    "etcPurps": "공공업무시설(문화회관)",
    "buildings": 1,
-   "pk": 1235152624
+   "pk": 1235152624,
+   "bjdongCd": "10700",
+   "platGbCd": "0",
+   "bun": "0118",
+   "ji": "0001",
+   "fetchedAt": "2026-11-06T06:54:43.675Z"
   }
  },
  "F011": {
@@ -55,7 +65,12 @@ window.SJ_REGISTRY = {
    "mainPurps": "교육연구시설",
    "etcPurps": "교육연구시설",
    "buildings": 1,
-   "pk": 1.0000000000000025e+21
+   "pk": 1.0000000000000025e+21,
+   "bjdongCd": "10400",
+   "platGbCd": "0",
+   "bun": "0230",
+   "ji": "0010",
+   "fetchedAt": "2026-11-06T06:54:43.979Z"
   }
  },
  "F012": {
@@ -74,7 +89,12 @@ window.SJ_REGISTRY = {
    "mainPurps": "운동시설",
    "etcPurps": "운동시설",
    "buildings": 3,
-   "pk": 12351100191033
+   "pk": 12351100191033,
+   "bjdongCd": "10400",
+   "platGbCd": "0",
+   "bun": "0110",
+   "ji": "0010",
+   "fetchedAt": "2026-11-06T06:54:46.953Z"
   }
  },
  "F018": {
@@ -93,7 +113,12 @@ window.SJ_REGISTRY = {
    "mainPurps": "노유자시설",
    "etcPurps": "노유자시설",
    "buildings": 1,
-   "pk": 12351100294284
+   "pk": 12351100294284,
+   "bjdongCd": "10500",
+   "platGbCd": "0",
+   "bun": "0223",
+   "ji": "0000",
+   "fetchedAt": "2026-11-06T06:54:50.677Z"
   }
  },
  "F029": {
@@ -112,7 +137,13 @@ window.SJ_REGISTRY = {
    "mainPurps": "제1종근린생활시설",
    "etcPurps": "제1종근린생활시설,창고",
    "buildings": 2,
-   "pk": 1235131867
+   "pk": 1235131867,
+   "bjdongCd": "10500",
+   "platGbCd": "0",
+   "bun": "0076",
+   "ji": "0000",
+   "fetchedAt": "2026-11-06T06:54:55.818Z"
   }
  }
 };
+window.SJ_REGISTRY_META = {"service":"국토교통부_건축HUB_건축물대장정보 서비스 (getBrTitleInfo)","endpoint":"https://apis.data.go.kr/1613000/BldRgstHubService/getBrTitleInfo","fetchedAt":"2026-11-06T06:54:55.819Z","confirmed":6,"total":32};

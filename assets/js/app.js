@@ -107,6 +107,59 @@
   document.body.appendChild(topBtn);
   window.addEventListener('scroll', function () { topBtn.classList.toggle('show', window.scrollY > 520); }, { passive: true });
 
+  /* ---------- 공공데이터(건축물대장) 출처 · 실시간 조회 표시 ---------- */
+  function regOf(f) { return f && (window.SJ_REGISTRY || {})[f.id]; }
+  function apiKey() { return SJ.store.getRaw(SJ.store.KEYS.key); }
+  function fmtDT(iso) { var d = new Date(iso); return isNaN(d) ? '' : d.getFullYear() + '.' + (d.getMonth() + 1) + '.' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
+  function liveQuery(R) {
+    var t0 = performance.now();
+    return window.SJ_API.getTitle({ serviceKey: apiKey(), bjdongCd: R.bjdongCd, platGbCd: R.platGbCd || '0', bun: R.bun, ji: R.ji, numOfRows: 50 })
+      .then(function (r) { r.ms = Math.round(performance.now() - t0); return r; });
+  }
+  function dataPanel(A) {
+    var M = window.SJ_REGISTRY_META || {}, n = A.facs.filter(regOf).length;
+    return '<section class="card lx-data rise" style="--i:5"><div class="ld-head"><div class="ld-badge"><span class="ld-pulse" id="livePulse"></span>' + ic('db') + '</div>' +
+      '<div><div class="eyebrow">Public Data · data.go.kr</div><h3>공공데이터 건축물대장 연동</h3>' +
+      '<p>시설의 연면적·층수·사용승인일·승강기 대수는 <b>국토교통부 건축HUB 건축물대장정보 서비스</b>(공공데이터포털 Open API)에서 조회한 값으로 법적 유형을 판정합니다.</p></div></div>' +
+      '<div class="ld-grid">' +
+      '<div><small>연동 서비스</small><b>건축HUB 건축물대장 · 표제부</b><span>apis.data.go.kr/1613000</span></div>' +
+      '<div><small>건축물대장 확정</small><b>' + n + ' / ' + A.facs.length + ' 시설</b><span>나머지는 추정값(담당자 확인 필요)</span></div>' +
+      '<div><small>최근 일괄 조회</small><b>' + (M.fetchedAt ? fmtDT(M.fetchedAt) : '-') + '</b><span>시설 상세에서 개별 재조회</span></div>' +
+      '<div id="liveBox"><small>실시간 연결</small><b id="liveState">' + (apiKey() ? '확인 중…' : '서비스키 미입력') + '</b><span id="liveSub">' + (apiKey() ? 'apis.data.go.kr 호출 중' : '<a href="#/settings">설정</a>에서 키 입력 시 실시간 조회') + '</span></div>' +
+      '</div></section>';
+  }
+  function provenance(f) {
+    var R = regOf(f), g = R && R._reg;
+    if (g) return '<div class="prov rise"><span class="pv-ic">' + ic('db') + '</span><div><b>국토교통부 건축HUB 건축물대장(표제부) 기준</b>' +
+      '<span>' + esc(g.newPlatPlc || g.platPlc || '') + (g.buildings > 1 ? ' · ' + g.buildings + '개 동 합산' : '') + ' · 주용도 ' + esc(g.mainPurps || '') + ' · 조회 ' + fmtDT(g.fetchedAt || (window.SJ_REGISTRY_META || {}).fetchedAt) + '</span></div>' +
+      '<div class="pv-live" id="provLive">' + (apiKey() && g.bjdongCd ? '<i class="ld-dot"></i>실시간 재확인 중…' : '<a href="#/settings">키 입력 시 실시간 재확인</a>') + '</div></div>';
+    return '<div class="prov pv-est rise"><span class="pv-ic">' + ic('alert') + '</span><div><b>건축물대장 미확정 — 추정값</b><span>지번·법정동코드 확인 후 [건축물대장 불러오기]로 공공데이터를 실시간 조회해 확정하세요.</span></div></div>';
+  }
+  function liveAfter(r) {
+    if (!window.SJ_API || !apiKey()) return;
+    var A = all();
+    if (!r.name) {
+      var f = A.facs.find(function (x) { var R = regOf(x); return R && R._reg && R._reg.bjdongCd; });
+      if (!f) return;
+      liveQuery(regOf(f)._reg).then(function (res) {
+        var s = document.getElementById('liveState'), sub = document.getElementById('liveSub'), p = document.getElementById('livePulse');
+        if (!s) return;
+        if (res.ok) { s.innerHTML = '<i class="ld-dot ok"></i>실시간 연결됨'; sub.textContent = fmtDT(new Date().toISOString()) + ' · 응답 ' + res.ms + 'ms · ' + f.name + ' 조회 성공'; if (p) p.classList.add('on'); }
+        else { s.innerHTML = '<i class="ld-dot bad"></i>연결 실패'; sub.textContent = res.error || ''; }
+      });
+    } else if (r.name === 'facility') {
+      var ff = A.map[r.id] && A.map[r.id].f, R = regOf(ff);
+      if (!R || !R._reg || !R._reg.bjdongCd) return;
+      liveQuery(R._reg).then(function (res) {
+        var el = document.getElementById('provLive'); if (!el) return;
+        if (!res.ok) { el.innerHTML = '<i class="ld-dot bad"></i>' + esc(res.error || '조회 실패'); return; }
+        var area = res.items.reduce(function (s, i) { return s + (+i.totArea || 0); }, 0);
+        var same = Math.abs(area - (R.area || 0)) < 1;
+        el.innerHTML = '<i class="ld-dot ok"></i>실시간 재확인 ' + fmtDT(new Date().toISOString()) + ' · ' + res.ms + 'ms · 연면적 ' + area.toLocaleString('ko-KR', { maximumFractionDigits: 2 }) + '㎡ ' + (same ? '<b class="pv-ok">일치</b>' : '<b class="pv-diff">변경 감지</b>');
+      });
+    }
+  }
+
   /* ---------- 재미 요소: 금가루·물결·자석 버튼·시차·스크롤 등장 ---------- */
   function burst(x, y) {
     if (RM) return;
@@ -157,6 +210,7 @@
   /* 렌더 후 애니메이션 */
   function after() {
     scrollReveal();
+    try { liveAfter(route()); } catch (e) { console.warn(e); }
     main.querySelectorAll('[data-count]').forEach(function (el) {
       var to = +el.getAttribute('data-count') || 0;
       if (RM || to === 0) { el.textContent = fmtN(to); return; }
@@ -223,6 +277,7 @@
     h += '<section class="lx-domains rise" style="--i:4"><div class="lx-dl">검토하는 법령 분야</div><div class="lx-dchips">' +
       SJ.DOMAINS.map(function (d) { return '<span class="lx-dchip">' + ic(d) + '<b>' + d + '</b><i>' + (dom[d] || 0) + '</i></span>'; }).join('') +
       '</div></section>';
+    h += dataPanel(A);
 
     h += dataWarn();
     if (!facs.length) {
@@ -315,7 +370,7 @@
     var agB = { old: 'b-danger', warn: 'b-warn', good: 'b-ok', unknown: 'b-muted' }[ag.level];
     var gradeB = { A: 'b-ok', B: 'b-ok', C: 'b-warn', D: 'b-danger', E: 'b-danger' }[f.safetyGrade] || 'b-muted';
     var hasApi = !!(window.SJ_API && typeof window.SJ_API.lookupFacility === 'function');
-    var h = '';
+    var h = provenance(e.f);
 
     h += '<section class="card det-hero rise"><div>' +
       '<div class="chips"><span class="badge b-gold">' + esc(f.category) + '</span>' + (f.subUse ? '<span class="badge b-muted">' + esc(f.subUse) + '</span>' : '') +
