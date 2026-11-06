@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>상주시 공공건축물 법정업무 안내 | SJ-FMS</title>
+<meta name="description" content="상주시 공공건축물 시설 담당자를 위한 유지관리 법정업무 안내 시스템">
+<meta name="color-scheme" content="dark light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/luxe.css">
+<script>
+  (function () { try { var t = localStorage.getItem('sjfms.theme'); document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light'); } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); } })();
+</script>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+
+<!-- 배경 재질: 비단 물결 + 한지 그레인 -->
+<div class="backdrop" aria-hidden="true">
+  <svg class="silk" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="silkA" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="var(--silk-1)" stop-opacity="0"/>
+        <stop offset=".5" stop-color="var(--silk-1)" stop-opacity=".55"/>
+        <stop offset="1" stop-color="var(--silk-1)" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="silkB" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="var(--silk-2)" stop-opacity="0"/>
+        <stop offset=".5" stop-color="var(--silk-2)" stop-opacity=".45"/>
+        <stop offset="1" stop-color="var(--silk-2)" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g class="silk-a"><path fill="url(#silkA)" d="M-200 520C120 380 360 640 720 500S1260 300 1640 420V560C1260 440 1080 660 720 640S120 520 -200 660Z"/></g>
+    <g class="silk-b"><path fill="url(#silkB)" d="M-200 250C200 120 460 330 800 230S1300 90 1640 200V300C1300 200 1120 390 800 360S220 250 -200 380Z"/></g>
+    <g class="silk-c"><path fill="url(#silkA)" opacity=".5" d="M-200 760C220 660 520 860 860 760S1340 640 1640 720V820C1340 760 1160 900 860 880S240 780 -200 900Z"/></g>
+  </svg>
+  <div class="grain"></div>
+</div>
+
+<header class="topbar" role="banner">
+  <a class="brand" href="#/" aria-label="SJ-FMS 대시보드로">
+    <span class="brand-mark" id="brandMark"></span>
+    <span class="brand-text"><strong>상주시 공공건축물 법정업무</strong><em>SANGJU · FACILITY COMPLIANCE</em></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="주 메뉴"></nav>
+  <button class="btn btn-icon theme-toggle" id="themeToggle" type="button" aria-label="화면 테마 전환"></button>
+</header>
+
+<main id="main" class="main" tabindex="-1" aria-live="polite"></main>
+
+<footer class="foot">
+  <p>SJ-FMS · 상주시 공공건축물 유지관리 법정업무 안내 — 기준: 2026-11 현행 법령. 법령 해석은 소관부처 유권해석·원문(law.go.kr)을 최종 확인하십시오.</p>
+</footer>
+
+<div class="toast-wrap" id="toasts" role="status" aria-live="polite"></div>
+<div class="modal-root" id="modalRoot"></div>
+<div id="printRoot" class="print-root"></div>
+
+<!-- 데이터 → 규칙 → API → 엔진 → 그래픽 → UI (일부 파일이 없어도 동작) -->
+<script src="data/registry.js"></script>
+<script src="data/facilities.js"></script>
+<script src="data/rules/fire.js"></script>
+<script src="data/rules/mech-elec.js"></script>
+<script src="data/rules/structure.js"></script>
+<script src="data/rules/safety-env.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/engine.js"></script>
+<script src="assets/js/graphics.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+/* SJ-FMS LUXE — "상주의 밤: 낙동강·경천섬·명주(비단)"  · app.css 위에 덮어쓰는 고급 디자인 레이어 */
+
+/* ============ 1. 토큰 — 딥 잉크 네이비 + 샴페인 골드 (기본 테마) ============ */
+:root, :root:not([data-theme="light"]) {
+  --bg-0: #04060b; --bg-1: #080c17; --bg-2: #0e1424;
+  --surface: rgba(13, 19, 34, .74); --surface-2: rgba(255, 255, 255, .028); --surface-3: rgba(255, 255, 255, .055);
+  --solid: #0c1222;
+  --line: rgba(214, 182, 122, .2); --line-2: rgba(255, 255, 255, .07);
+  --text: #f2ede2; --text-2: #bdb6a6; --muted: #8a8476;
+  --gold: #d6b67c; --gold-hi: #f5e5bd; --gold-lo: #94733c; --gold-ink: #1e1606;
+  --persimmon: #b48f6c; --jade: #6cc3a5; --sky: #8cadea;
+  --danger: #ee7377; --warn: #e6bb5c; --ok: #66c9a2; --event: #93a4c8;
+  --silk-1: #b8955a; --silk-2: #34508f;
+  --lx-m1a: #0f1830; --lx-m1b: #080d1a; --lx-m2a: #16213d; --lx-m2b: #0c1326; --lx-r1: #0c1630; --lx-r2: #060a14;
+  --metal: linear-gradient(135deg, #fff4d6 0%, #e6c78b 18%, #b38d4c 40%, #f0d9a2 58%, #a17c3c 80%, #f6e3b3 100%);
+  --metal-soft: linear-gradient(135deg, rgba(246,227,179,.9), rgba(179,141,76,.55) 45%, rgba(240,217,162,.85) 70%, rgba(161,124,60,.5));
+  --shadow-1: 0 1px 1px rgba(0,0,0,.3), 0 4px 12px -2px rgba(0,0,0,.45);
+  --shadow-2: 0 1px 0 rgba(255,255,255,.05) inset, 0 0 0 1px rgba(0,0,0,.35), 0 2px 4px rgba(0,0,0,.35), 0 18px 40px -14px rgba(0,0,0,.75);
+  --shadow-3: 0 1px 0 rgba(255,255,255,.07) inset, 0 0 0 1px rgba(0,0,0,.4), 0 10px 20px rgba(0,0,0,.4), 0 40px 80px -24px rgba(0,0,0,.85), 0 0 60px -20px rgba(214,182,122,.25);
+  --serif: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --display: "Cormorant Garamond", "Times New Roman", serif;
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --bg-0: #f4f1ea; --bg-1: #f8f6f1; --bg-2: #ece6da;
+  --surface: rgba(255, 255, 255, .82); --solid: #ffffff;
+  --text: #14182a; --text-2: #474b5a; --muted: #7b7768;
+  --gold: #94703a; --gold-hi: #b98d4a; --gold-lo: #6f5222;
+  --persimmon: #8f6b4e; --silk-1: #d9bf8c; --silk-2: #a9bde3;
+  --lx-m1a: #dfe3ee; --lx-m1b: #eef0f5; --lx-m2a: #cfd6e6; --lx-m2b: #e4e8f1; --lx-r1: #d8dfee; --lx-r2: #eef1f7;
+  --serif: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --display: "Cormorant Garamond", "Times New Roman", serif;
+}
+
+/* ============ 2. 타이포 — Pretendard 단일 계열, 숫자는 tabular ============ */
+body { font-family: var(--sans); font-size: 15px; letter-spacing: -.005em; font-feature-settings: "tnum" 1, "ss06" 1; line-height: 1.65; }
+h1, h2, h3, h4 { font-family: var(--sans); font-weight: 700; letter-spacing: -.028em; }
+h2 { font-size: 22px; }
+.eyebrow { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 15px; letter-spacing: .06em; text-transform: none; color: var(--gold); }
+.brand-text strong { font-family: var(--sans); font-weight: 700; font-size: 15.5px; letter-spacing: -.02em; }
+.brand-text em { font-family: var(--display); font-size: 11.5px; letter-spacing: .2em; font-weight: 600; }
+.kpi .k-v, .stat .v { font-family: var(--sans); font-weight: 800; letter-spacing: -.035em; }
+
+/* ============ 3. 배경 재질 — 명주 새틴 광택 + 미세 결 + 비네팅 ============ */
+body {
+  background:
+    radial-gradient(1100px 620px at 88% -8%, rgba(214,182,122,.16), transparent 62%),
+    radial-gradient(900px 640px at -8% 18%, rgba(52,80,143,.28), transparent 64%),
+    radial-gradient(1400px 900px at 50% 120%, rgba(214,182,122,.08), transparent 60%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,.012) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg, var(--bg-1), var(--bg-0) 70%);
+  background-color: var(--bg-0); background-attachment: fixed;
+}
+:root[data-theme="light"] body {
+  background:
+    radial-gradient(1100px 620px at 88% -8%, rgba(214,182,122,.22), transparent 62%),
+    radial-gradient(900px 640px at -8% 18%, rgba(140,170,230,.25), transparent 64%),
+    repeating-linear-gradient(115deg, rgba(0,0,0,.012) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg, var(--bg-1), var(--bg-0));
+}
+.backdrop::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,.55)); }
+:root[data-theme="light"] .backdrop::after { background: radial-gradient(120% 90% at 50% 40%, transparent 60%, rgba(120,100,60,.12)); }
+.silk { opacity: .32; }
+.grain { opacity: .16; }
+
+/* ============ 4. 상단바 ============ */
+.topbar { background: linear-gradient(180deg, rgba(6,9,17,.86), rgba(6,9,17,.62)); border-bottom: 0; box-shadow: 0 1px 0 rgba(214,182,122,.18), 0 10px 30px -20px rgba(0,0,0,.9); }
+.topbar::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, rgba(245,229,189,.65), transparent); opacity: .6; }
+:root[data-theme="light"] .topbar { background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.7)); }
+.nav a { font-weight: 600; letter-spacing: -.01em; }
+.nav a[aria-current="page"] { position: relative; overflow: hidden; }
+.nav a[aria-current="page"]::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%); transform: translateX(-120%); animation: lxSheen 5.5s var(--ease) infinite; }
+
+/* ============ 5. 카드 — 다층 유리 + 금속 헤어라인 + 상단 하이라이트 ============ */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.008) 40%), var(--surface);
+  box-shadow: var(--shadow-2); border-radius: 20px;
+}
+.card::before { background: linear-gradient(150deg, rgba(245,229,189,.55), rgba(214,182,122,.12) 22%, rgba(255,255,255,.03) 50%, rgba(214,182,122,.1) 78%, rgba(245,229,189,.35)); }
+.card::after { height: 1px; inset: 0 18px auto; background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent); border-radius: 0; }
+:root[data-theme="light"] .card::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,1), transparent); }
+.tilt { transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
+.tilt:hover { box-shadow: var(--shadow-3); }
+.card-title { font-family: var(--sans); font-weight: 700; letter-spacing: -.02em; }
+.card-title .ico { width: 30px; height: 30px; padding: 6px; border-radius: 9px; color: var(--gold-hi);
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.12), transparent 60%), linear-gradient(160deg, #1b2542, #0b1121);
+  box-shadow: 0 0 0 1px rgba(214,182,122,.35), 0 4px 10px -4px rgba(0,0,0,.8); }
+:root[data-theme="light"] .card-title .ico { background: linear-gradient(160deg, #fffaf0, #efe5d1); color: var(--gold-lo); }
+
+/* ============ 6. 버튼 — 금속 베벨, 광택 스윕, 눌림 ============ */
+.btn { border-radius: 12px; font-weight: 650; letter-spacing: -.01em;
+  background: linear-gradient(180deg, #1a2340, #0d1426);
+  border: 1px solid rgba(214,182,122,.28);
+  box-shadow: 0 1px 0 rgba(255,255,255,.09) inset, 0 -2px 0 rgba(0,0,0,.35) inset, 0 2px 3px rgba(0,0,0,.35), 0 10px 22px -10px rgba(0,0,0,.8); }
+.btn:hover { transform: translateY(-1px); filter: brightness(1.12); }
+.btn:active { transform: translateY(1px); box-shadow: 0 2px 6px rgba(0,0,0,.5) inset; }
+:root[data-theme="light"] .btn { background: linear-gradient(180deg, #ffffff, #f1ece2); color: var(--text); }
+.btn-gold { color: var(--gold-ink) !important; border: 0; background: var(--metal);
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 -2px 0 rgba(90,60,10,.35) inset, 0 3px 6px rgba(0,0,0,.35), 0 14px 30px -10px rgba(214,182,122,.55); }
+.btn-gold::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,.75) 50%, transparent 65%); transform: translateX(-130%); animation: lxSheen 4.2s var(--ease) infinite; pointer-events: none; }
+
+/* ============ 7. 히어로 ============ */
+.lx-hero { min-height: 470px; padding: 56px 52px 150px; border-radius: 28px;
+  background: radial-gradient(900px 500px at 85% 10%, rgba(214,182,122,.12), transparent 60%), linear-gradient(180deg, #0b1222 0%, #060a14 100%);
+  box-shadow: var(--shadow-3); }
+:root[data-theme="light"] .lx-hero { background: radial-gradient(900px 500px at 85% 10%, rgba(214,182,122,.25), transparent 60%), linear-gradient(180deg, #fbfaf7, #eef1f6); }
+.lx-hero::before { opacity: .8; }
+.lx-hero::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(100deg, transparent 40%, rgba(245,229,189,.06) 50%, transparent 60%); background-size: 250% 100%; animation: lxSatin 12s linear infinite; }
+.lx-hero .hero-inner { max-width: 620px; z-index: 1; }
+.lx-kicker { display: inline-flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; color: var(--text-2); letter-spacing: .01em;
+  padding: 6px 16px 6px 6px; border-radius: 999px; background: rgba(255,255,255,.04); box-shadow: 0 0 0 1px rgba(214,182,122,.28) inset; }
+.lx-seal { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-family: "Noto Serif KR", serif; font-size: 12px; font-weight: 700; letter-spacing: -.05em; color: var(--gold-ink); background: var(--metal);
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 4px 10px -2px rgba(214,182,122,.6); }
+.lx-hero h1 { margin: 22px 0 18px; font-size: clamp(30px, 4.4vw, 52px); line-height: 1.18; font-weight: 800; letter-spacing: -.045em; }
+.lx-hero h1 span, .lx-hero h1 b { display: block; }
+.lx-l1 { color: var(--text); }
+.lx-l2 { background: var(--metal); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: lxGoldText 8s ease-in-out infinite alternate; }
+.lx-hero p.lead { font-size: 16px; line-height: 1.75; color: var(--text-2); max-width: 580px; }
+.lx-hero p.lead strong { color: var(--text); font-weight: 650; }
+.lx-hero .search { background: rgba(4,7,14,.6); border-radius: 14px; box-shadow: 0 0 0 1px rgba(214,182,122,.35), 0 10px 30px -10px rgba(0,0,0,.8), 0 1px 0 rgba(255,255,255,.06) inset; }
+:root[data-theme="light"] .lx-hero .search { background: #fff; }
+.lx-hero .finder { margin-top: 26px; max-width: 560px; }
+.lx-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.lx-cta .btn { min-height: 46px; padding: 11px 20px; font-size: 14.5px; }
+
+/* 히어로 일러스트 */
+.hero-art.lx { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.lx-star { fill: #f6e7c1; animation: lxTwinkle 4s ease-in-out infinite; animation-delay: var(--d); }
+.lx-ridge { fill: none; stroke: url(#lxGold); stroke-width: 1.3; opacity: .75; }
+.lx-r2 { opacity: .45; } .lx-r3 { stroke-width: 1; opacity: .5; }
+.lx-isle { fill: #13233a; stroke: url(#lxGold); stroke-width: 1.1; }
+:root[data-theme="light"] .lx-isle { fill: #d9e3dc; }
+.lx-tower path { fill: none; stroke: url(#lxGold); stroke-width: 1.4; stroke-linejoin: round; }
+.lx-tower circle { fill: #f6e2a8; animation: lxBeacon 2.8s ease-in-out infinite; }
+.lx-deck { stroke: url(#lxGold); stroke-width: 2.4; }
+.lx-pylon { stroke: url(#lxGold); stroke-width: 3; stroke-linecap: round; fill: none; }
+.lx-cable { fill: none; stroke: url(#lxGold); stroke-width: 1.3; }
+.lx-hang { stroke: #d6b67c; stroke-width: .6; opacity: .55; }
+.lx-weir path { fill: none; stroke: url(#lxGold); stroke-width: 1.2; opacity: .8; }
+.lx-bike { animation: lxRide 22s linear infinite; }
+.lx-bike circle, .lx-bike path { fill: none; stroke: #f5e5bd; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.lx-bike circle:last-child { fill: #f5e5bd; }
+.lx-moonpath { animation: lxShimmer 6s ease-in-out infinite alternate; }
+.hero-art.lx .hw { stroke: #d6b67c; stroke-width: 1; opacity: .4; }
+.hero-art.lx .hw2 { opacity: .26; } .hero-art.lx .hw3 { opacity: .16; }
+
+/* ============ 8. 사용 흐름 3단계 + 법령 분야 띠 ============ */
+.lx-steps { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 14px; margin-top: -84px; position: relative; z-index: 2; padding: 0 22px; }
+.lx-step { position: relative; padding: 24px 22px 22px; border-radius: 20px; overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.01) 50%), rgba(11,17,32,.9);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: var(--shadow-3), 0 0 0 1px rgba(214,182,122,.26) inset;
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
+.lx-step:hover { transform: translateY(-4px); }
+:root[data-theme="light"] .lx-step { background: rgba(255,255,255,.92); }
+.lx-step::before { content: ""; position: absolute; left: 22px; right: 22px; top: 0; height: 2px; background: var(--metal); opacity: .8; border-radius: 0 0 2px 2px; }
+.lx-num { position: absolute; right: 18px; top: 8px; font-family: var(--display); font-size: 54px; font-weight: 600; font-style: italic; line-height: 1;
+  background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: .35; }
+.lx-medal { width: 50px; height: 50px; border-radius: 15px; display: grid; place-items: center; color: var(--gold-hi); margin-bottom: 14px;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.16), transparent 55%), linear-gradient(160deg, #1f2b4c, #0a101f);
+  box-shadow: 0 0 0 1px rgba(214,182,122,.45), 0 1px 0 rgba(255,255,255,.12) inset, 0 10px 20px -8px rgba(0,0,0,.9); }
+.lx-medal .ico { width: 24px; height: 24px; }
+:root[data-theme="light"] .lx-medal { background: linear-gradient(160deg, #fffaf0, #eadfca); color: var(--gold-lo); }
+.lx-step h3 { font-size: 18px; font-weight: 750; margin-bottom: 6px; }
+.lx-step p { font-size: 13.8px; line-height: 1.65; color: var(--text-2); }
+.lx-arrow { display: grid; place-items: center; color: var(--gold); opacity: .7; }
+.lx-arrow .ico { animation: lxNudge 2.4s ease-in-out infinite; }
+.lx-domains { display: flex; align-items: center; gap: 16px; margin: 22px 0 0; padding: 14px 18px; border-radius: 16px;
+  background: rgba(255,255,255,.025); box-shadow: 0 0 0 1px var(--line) inset; }
+.lx-dl { flex-shrink: 0; font-size: 12.5px; font-weight: 700; color: var(--gold); letter-spacing: .02em; }
+.lx-dchips { display: flex; flex-wrap: wrap; gap: 8px; }
+.lx-dchip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 9px; border-radius: 999px; font-size: 13px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015)); box-shadow: 0 0 0 1px rgba(214,182,122,.22) inset, 0 4px 10px -6px rgba(0,0,0,.8);
+  transition: transform .25s var(--ease), box-shadow .25s; }
+.lx-dchip:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(245,229,189,.55) inset, 0 8px 16px -8px rgba(214,182,122,.5); }
+.lx-dchip .ico { width: 15px; height: 15px; color: var(--gold); }
+.lx-dchip b { font-weight: 600; }
+.lx-dchip i { font-style: normal; font-size: 11.5px; color: var(--muted); }
+
+/* ============ 9. KPI — 금속 숫자, 메달 아이콘 ============ */
+.kpi { padding: 22px 22px 20px; }
+.kpi .k-l { font-weight: 650; color: var(--text-2); }
+.kpi .k-v { font-size: 40px; }
+.kpi .k-v span { background: linear-gradient(180deg, #ffffff, #d9d2c2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.kpi.k-warn .k-v span { background: var(--metal); -webkit-background-clip: text; background-clip: text; }
+.kpi.k-danger .k-v span { background: linear-gradient(180deg, #ffb0b2, #e0575c); -webkit-background-clip: text; background-clip: text; }
+:root[data-theme="light"] .kpi .k-v span { background: linear-gradient(180deg, #1b2036, #3a3f55); -webkit-background-clip: text; background-clip: text; }
+.kpi .k-ic { border-radius: 14px; color: var(--gold-hi);
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.16), transparent 55%), linear-gradient(160deg, #1f2b4c, #0a101f);
+  box-shadow: 0 0 0 1px rgba(214,182,122,.45), 0 10px 20px -8px rgba(0,0,0,.9); }
+:root[data-theme="light"] .kpi .k-ic { background: linear-gradient(160deg, #fffaf0, #eadfca); color: var(--gold-lo); }
+.kpi .spark { height: 2px; opacity: .9; background: linear-gradient(90deg, transparent, #f5e5bd, #b38d4c, transparent); background-size: 200% 100%; animation: lxSatin 6s linear infinite; }
+
+/* ============ 10. 막대·타임라인·배지 ============ */
+.bar-track { background: rgba(255,255,255,.05); box-shadow: 0 1px 2px rgba(0,0,0,.6) inset; }
+.bar-fill { background: var(--metal); box-shadow: 0 0 12px -2px rgba(214,182,122,.6); }
+.badge { letter-spacing: -.005em; }
+.legal { box-shadow: 0 0 0 1px rgba(214,182,122,.3) inset, 0 8px 18px -10px rgba(0,0,0,.8); }
+.section-head h2 { font-size: 24px; font-weight: 800; letter-spacing: -.035em; }
+.fac .fac-art { background: radial-gradient(120% 90% at 50% 0%, rgba(214,182,122,.12), transparent 60%), linear-gradient(180deg, rgba(20,30,54,.7), rgba(8,12,24,.7)); }
+:root[data-theme="light"] .fac .fac-art { background: linear-gradient(180deg, #f6f1e6, #ece4d4); }
+.fac h3 { font-weight: 750; letter-spacing: -.03em; }
+
+/* ============ 11. 진입 애니메이션 고도화 ============ */
+.rise { animation: lxRise .9s var(--ease) both; animation-delay: calc(var(--i, 0) * 70ms); }
+
+/* ============ 11-b. 먹지(墨紙) 질감 — 거친 섬유결 + 미세 입자 + 얼룩 ============ */
+:root {
+  --tex-fine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 -.22'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --tex-fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045 .22' numOctaves='5' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .45 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  --tex-blot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0035' numOctaves='3' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.6 -.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E");
+}
+.backdrop::before { content: ""; position: absolute; inset: 0; z-index: 1;
+  background-image: var(--tex-fine);
+  background-size: 240px 240px;
+  opacity: .4; mix-blend-mode: soft-light; }
+.grain { opacity: .3; mix-blend-mode: soft-light; background-image: var(--tex-fine); }
+:root[data-theme="light"] .backdrop::before { mix-blend-mode: multiply; opacity: .18; filter: invert(1); }
+.card, .lx-step, .lx-hero, .lx-domains {
+  background-image: var(--tex-fiber), var(--tex-fine), linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.008) 40%);
+  background-size: 600px 600px, 240px 240px, auto;
+  background-blend-mode: soft-light, soft-light, normal;
+}
+.card { background-color: rgba(13, 19, 34, .78); }
+.lx-domains { background-color: rgba(10, 15, 28, .7); }
+:root[data-theme="light"] .lx-domains { background-color: rgba(255,255,255,.7); }
+.lx-step { background-color: rgba(11, 17, 32, .9); }
+.lx-hero { background-color: #070b16; background-image: var(--tex-fiber), var(--tex-fine), radial-gradient(900px 500px at 85% 10%, rgba(214,182,122,.12), transparent 60%), linear-gradient(180deg, #0b1222 0%, #060a14 100%);
+  background-size: 600px 600px, 240px 240px, auto, auto; }
+:root[data-theme="light"] .card { background-color: rgba(255,255,255,.85); }
+:root[data-theme="light"] .lx-step { background-color: rgba(255,255,255,.92); }
+:root[data-theme="light"] .lx-hero { background-color: #f6f4ef; background-image: var(--tex-fine), radial-gradient(900px 500px at 85% 10%, rgba(214,182,122,.25), transparent 60%), linear-gradient(180deg, #fbfaf7, #eef1f6); background-size: 240px 240px, auto, auto; }
+/* 먹 번짐 테두리 — 히어로 하단 */
+.lx-hero .hero-art.lx { filter: drop-shadow(0 -1px 0 rgba(0,0,0,.4)); }
+
+/* ============ 11-c. 모션 톤 — 은은하고 느리게 ============ */
+:root { --ease-soft: cubic-bezier(.22, .61, .36, 1); }
+.nav a[aria-current="page"]::after { animation: none; display: none; }
+.btn-gold::after { animation-duration: 9s; opacity: .7; }
+.lx-l2 { animation-duration: 16s; }
+.lx-hero::after { animation-duration: 28s; }
+.lx-star { animation-duration: 7s; }
+.lx-tower circle { animation-duration: 5s; }
+.lx-bike { animation-duration: 48s; }
+.lx-moonpath { animation-duration: 10s; }
+.kpi .spark { animation-duration: 14s; }
+.lx-arrow .ico { animation: lxNudge 4.5s var(--ease-soft) infinite; }
+.lx-step, .lx-dchip, .tilt, .btn { transition-timing-function: var(--ease-soft); }
+.lx-step { transition-duration: .7s; } .lx-step:hover { transform: translateY(-2px); }
+.lx-dchip:hover { transform: translateY(-1px); }
+.btn { transition: transform .3s var(--ease-soft), filter .3s var(--ease-soft), box-shadow .3s var(--ease-soft); }
+.btn:hover { transform: translateY(-1px); filter: brightness(1.07); }
+.rise { animation: lxRise 1.1s var(--ease-soft) both; animation-delay: calc(var(--i, 0) * 60ms); }
+.hero-art.lx .hw { animation-duration: calc(var(--dur) * 1.8); }
+
+/* ============ 12. 키프레임 ============ */
+@keyframes lxRise { from { opacity: 0; transform: translateY(10px); filter: blur(2px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes lxSheen { 0%, 60% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
+@keyframes lxSatin { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes lxGoldText { from { background-position: 0% 0; } to { background-position: 100% 0; } }
+@keyframes lxTwinkle { 0%, 100% { opacity: .35; } 50% { opacity: .85; } }
+@keyframes lxBeacon { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+@keyframes lxShimmer { from { opacity: .25; } to { opacity: .6; } }
+@keyframes lxNudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2px); } }
+@keyframes lxRide { from { transform: translate(540px, 263px); } to { transform: translate(1060px, 263px); } }
+
+/* ============ 14. 라이트 럭스 (기본) — 아이보리 한지 + 먹빛 네이비, 금색은 헤어라인만 ============ */
+:root[data-theme="light"] {
+  --bg-0: #f3f2ee; --bg-1: #f8f7f4; --bg-2: #ecebe5;
+  --surface: rgba(255, 255, 255, .9); --surface-2: rgba(20, 26, 44, .028); --surface-3: rgba(20, 26, 44, .05); --solid: #ffffff;
+  --line: rgba(22, 30, 52, .1); --line-2: rgba(22, 30, 52, .07);
+  --text: #141826; --text-2: #4a4f5e; --muted: #868a95;
+  --ink: #1b2440; --ink-2: #2c3a63;
+  --gold: #9c8051; --gold-hi: #b39a6b; --gold-lo: #7d6640; --gold-ink: #ffffff;
+  --jade: #2e8a6c; --sky: #3d62b0; --persimmon: #8c6e57;
+  --danger: #c2464b; --warn: #a97a1c; --ok: #2b8a62; --event: #66749a;
+  --metal: linear-gradient(135deg, #d9c7a2, #b49867 45%, #d6c39c 70%, #a88c5c);
+  --lx-m1a: #e6e8ee; --lx-m1b: #f3f4f7; --lx-m2a: #dadfe9; --lx-m2b: #eceff4; --lx-r1: #e9edf3; --lx-r2: #f6f7f9;
+  --shadow-1: 0 1px 2px rgba(20,26,44,.06), 0 2px 6px rgba(20,26,44,.05);
+  --shadow-2: 0 1px 0 #fff inset, 0 0 0 1px rgba(20,26,44,.06), 0 1px 2px rgba(20,26,44,.05), 0 12px 32px -14px rgba(20,26,44,.18);
+  --shadow-3: 0 1px 0 #fff inset, 0 0 0 1px rgba(20,26,44,.07), 0 4px 10px rgba(20,26,44,.05), 0 28px 60px -24px rgba(20,26,44,.28);
+  --tex-fine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .16 0 0 0 .34 -.13'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color-scheme: light;
+}
+/* 배경: 무지 한지 톤 + 아주 미세한 입자만 (얼룩·섬유결·비단 번짐 제거) */
+:root[data-theme="light"] body { background: linear-gradient(180deg, #f9f8f5 0%, #f2f1ec 100%); background-color: #f3f2ee; }
+:root[data-theme="light"] .silk, :root[data-theme="light"] .backdrop::after { display: none; }
+:root[data-theme="light"] .backdrop::before { background-image: var(--tex-fine); background-size: 180px 180px; opacity: .55; mix-blend-mode: multiply; filter: none; }
+:root[data-theme="light"] .grain { display: none; }
+:root[data-theme="light"] .card, :root[data-theme="light"] .lx-step, :root[data-theme="light"] .lx-domains {
+  background-image: var(--tex-fine), linear-gradient(180deg, #ffffff, #fbfaf8); background-size: 180px 180px, auto; background-blend-mode: multiply, normal; background-color: #fff; }
+:root[data-theme="light"] .card::before { background: linear-gradient(150deg, rgba(156,128,81,.38), rgba(20,26,44,.06) 30%, rgba(20,26,44,.04) 70%, rgba(156,128,81,.22)); }
+:root[data-theme="light"] .card::after { background: linear-gradient(90deg, transparent, #fff, transparent); }
+
+/* 상단바 */
+:root[data-theme="light"] .topbar { background: rgba(250,249,246,.86); box-shadow: 0 1px 0 rgba(20,26,44,.08); }
+:root[data-theme="light"] .topbar::after { background: linear-gradient(90deg, transparent, rgba(156,128,81,.45), transparent); opacity: .5; }
+:root[data-theme="light"] .nav a { color: var(--text-2); }
+:root[data-theme="light"] .nav a[aria-current="page"] { color: #fff; background: linear-gradient(180deg, #2a3659, #161e36);
+  box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 -1px 0 rgba(0,0,0,.3) inset, 0 4px 12px -4px rgba(20,26,44,.45); }
+:root[data-theme="light"] .brand-text strong { color: var(--ink); }
+:root[data-theme="light"] .brand-text em { color: var(--gold); }
+
+/* 버튼: 주버튼은 먹빛 네이비 + 금 헤어라인, 보조는 백색 */
+:root[data-theme="light"] .btn { color: var(--ink); background: linear-gradient(180deg, #ffffff, #f4f3ef); border: 1px solid rgba(20,26,44,.12);
+  box-shadow: 0 1px 0 #fff inset, 0 -1px 0 rgba(20,26,44,.05) inset, 0 1px 2px rgba(20,26,44,.08), 0 6px 14px -8px rgba(20,26,44,.25); }
+:root[data-theme="light"] .btn-gold { color: #fff !important; background: linear-gradient(180deg, #2b375b, #161e36); border: 1px solid rgba(156,128,81,.55);
+  box-shadow: 0 1px 0 rgba(255,255,255,.16) inset, 0 -2px 0 rgba(0,0,0,.25) inset, 0 2px 4px rgba(20,26,44,.2), 0 12px 26px -12px rgba(20,26,44,.55); }
+:root[data-theme="light"] .btn-gold .ico { color: #d9c7a2; }
+:root[data-theme="light"] .btn-gold::after { background: linear-gradient(100deg, transparent 40%, rgba(255,255,255,.18) 50%, transparent 60%); }
+
+/* 히어로: 아이보리 + 먹선 일러스트, 금은 달·탑 불빛에만 */
+:root[data-theme="light"] .lx-hero { background-color: #fbfaf7; background-image: var(--tex-fine), radial-gradient(800px 420px at 86% 12%, rgba(179,154,107,.12), transparent 62%), linear-gradient(180deg, #fdfcfa, #f1f2f5);
+  background-size: 180px 180px, auto, auto; background-blend-mode: multiply, normal, normal; }
+:root[data-theme="light"] .lx-hero::before { opacity: .35; }
+:root[data-theme="light"] .lx-hero::after { display: none; }
+:root[data-theme="light"] .lx-kicker { background: #fff; box-shadow: 0 0 0 1px rgba(20,26,44,.1) inset, 0 2px 6px -2px rgba(20,26,44,.12); }
+:root[data-theme="light"] .lx-seal { color: #fff; background: linear-gradient(180deg, #2b375b, #161e36); box-shadow: 0 0 0 1px rgba(156,128,81,.6), 0 3px 8px -2px rgba(20,26,44,.4); }
+:root[data-theme="light"] .lx-l1 { color: var(--ink); }
+:root[data-theme="light"] .lx-l2 { background: linear-gradient(90deg, #2c3a63, #5a6a96 50%, #2c3a63); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+:root[data-theme="light"] .lx-hero p.lead strong { color: var(--ink); }
+:root[data-theme="light"] .lx-hero .search { background: #fff; box-shadow: 0 0 0 1px rgba(20,26,44,.12), 0 8px 24px -14px rgba(20,26,44,.35), 0 1px 0 #fff inset; }
+:root[data-theme="light"] .lx-ridge, :root[data-theme="light"] .lx-tower path, :root[data-theme="light"] .lx-deck, :root[data-theme="light"] .lx-pylon,
+:root[data-theme="light"] .lx-cable, :root[data-theme="light"] .lx-weir path, :root[data-theme="light"] .lx-isle { stroke: #3a4670; }
+:root[data-theme="light"] .lx-ridge { opacity: .5; } :root[data-theme="light"] .lx-r2 { opacity: .3; }
+:root[data-theme="light"] .lx-hang { stroke: #3a4670; opacity: .3; }
+:root[data-theme="light"] .lx-isle { fill: #e3e8e4; }
+:root[data-theme="light"] .lx-bike circle, :root[data-theme="light"] .lx-bike path { stroke: #1b2440; }
+:root[data-theme="light"] .lx-bike circle:last-child { fill: #1b2440; }
+:root[data-theme="light"] .lx-star { fill: #9c8051; opacity: .5; }
+:root[data-theme="light"] .lx-tower circle { fill: #c9a868; }
+:root[data-theme="light"] .hero-art.lx .hw { stroke: #3a4670; opacity: .22; }
+:root[data-theme="light"] .hero-art.lx .hw2 { opacity: .14; } :root[data-theme="light"] .hero-art.lx .hw3 { opacity: .08; }
+:root[data-theme="light"] .lx-moonpath { opacity: .25; }
+
+/* 단계 카드 · 분야 칩 · KPI · 메달 */
+:root[data-theme="light"] .lx-step { box-shadow: var(--shadow-3); }
+:root[data-theme="light"] .lx-step::before { background: linear-gradient(90deg, transparent, #b39a6b, transparent); height: 1px; opacity: .9; }
+:root[data-theme="light"] .lx-num { background: none; color: #1b2440; -webkit-text-fill-color: #1b2440; opacity: .12; }
+:root[data-theme="light"] .lx-medal, :root[data-theme="light"] .kpi .k-ic, :root[data-theme="light"] .card-title .ico {
+  color: #fff; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.22), transparent 55%), linear-gradient(160deg, #2e3b62, #151c33);
+  box-shadow: 0 0 0 1px rgba(156,128,81,.5), 0 1px 0 rgba(255,255,255,.2) inset, 0 8px 16px -8px rgba(20,26,44,.55); }
+:root[data-theme="light"] .lx-arrow { color: #9c8051; }
+:root[data-theme="light"] .lx-dl { color: var(--ink); }
+:root[data-theme="light"] .lx-dchip { background: #fff; box-shadow: 0 0 0 1px rgba(20,26,44,.09) inset, 0 2px 6px -3px rgba(20,26,44,.15); }
+:root[data-theme="light"] .lx-dchip .ico { color: var(--ink-2); }
+:root[data-theme="light"] .kpi .k-v span { background: linear-gradient(180deg, #141826, #3a4160); -webkit-background-clip: text; background-clip: text; }
+:root[data-theme="light"] .kpi.k-warn .k-v span { background: linear-gradient(180deg, #8f6c2a, #b58c3e); -webkit-background-clip: text; background-clip: text; }
+:root[data-theme="light"] .kpi .spark { background: linear-gradient(90deg, transparent, #b39a6b, transparent); opacity: .6; animation: none; }
+:root[data-theme="light"] .bar-track { background: #eeede9; box-shadow: 0 1px 2px rgba(20,26,44,.1) inset; }
+:root[data-theme="light"] .bar-fill { background: linear-gradient(90deg, #2b375b, #4f5f8c); box-shadow: none; }
+:root[data-theme="light"] .fac .fac-art { background: linear-gradient(180deg, #f7f6f2, #eeede8); }
+:root[data-theme="light"] .eyebrow { color: var(--gold); }
+
+/* ============ 15. 실사 히어로 — 경천섬 사진 + 학 + 자전거 라이더 ============ */
+.lx-photo-hero { --px: 0; --py: 0; background: #e9edf2 !important; }
+.lx-photo { position: absolute; inset: -3%; z-index: 0; overflow: hidden; border-radius: inherit;
+  transform: translate3d(calc(var(--px) * -18px), calc(var(--py) * -12px), 0); transition: transform 1.2s var(--ease-soft); }
+.lx-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 46%; display: block;
+  animation: lxKen 38s ease-in-out infinite alternate; filter: saturate(1.04) contrast(1.02); }
+.lx-scrim { position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(90deg, rgba(250,249,246,.97) 0%, rgba(250,249,246,.9) 30%, rgba(250,249,246,.55) 50%, rgba(250,249,246,0) 72%),
+              linear-gradient(0deg, rgba(250,249,246,.75) 0%, rgba(250,249,246,0) 26%); }
+:root[data-theme="dark"] .lx-scrim { background: linear-gradient(90deg, rgba(6,10,20,.96) 0%, rgba(6,10,20,.86) 32%, rgba(6,10,20,.45) 54%, rgba(6,10,20,.05) 76%), linear-gradient(0deg, rgba(6,10,20,.8), transparent 30%); }
+:root[data-theme="dark"] .lx-photo img { filter: brightness(.72) saturate(.9); }
+.lx-photo-hero::after { display: none; }
+.lx-credit { position: absolute; right: 18px; top: 14px; z-index: 3; font-size: 11px; color: rgba(255,255,255,.92) !important; text-shadow: 0 1px 3px rgba(0,0,0,.55);
+  padding: 3px 9px; border-radius: 999px; background: rgba(0,0,0,.22); backdrop-filter: blur(6px); }
+
+/* 도로(강변 자전거길) + 라이더 */
+.lx-road { position: absolute; left: 0; right: 0; bottom: 92px; height: 2px; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(27,36,64,.28) 15%, rgba(27,36,64,.28) 85%, transparent); }
+.lx-road i { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255,255,255,.9) 0 18px, transparent 18px 40px); opacity: .5; animation: lxRoad 1.6s linear infinite; }
+.lx-rider { position: absolute; z-index: 2; bottom: 91px; left: 0; width: 92px; pointer-events: none;
+  animation: lxRideX 30s linear infinite; }
+.lx-rider svg { width: 100%; height: auto; display: block; overflow: visible; animation: lxBob 2.6s ease-in-out infinite; }
+.cy-tire { fill: none; stroke: #1a2036; stroke-width: 3.2; }
+.cy-rim { fill: none; stroke: #8d93a6; stroke-width: .9; }
+.cy-spoke { stroke: #9aa0b2; stroke-width: .45; }
+.cy-hub { fill: #2a3150; }
+.cy-frame { fill: none; stroke: #b8212f; stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
+.cy-bar, .cy-post { fill: none; stroke: #1a2036; stroke-width: 2.2; stroke-linecap: round; }
+.cy-seat { stroke: #1a2036; stroke-width: 3; stroke-linecap: round; }
+.cy-crank { stroke: #3b4258; stroke-width: 1.8; stroke-linecap: round; } .cy-ring { fill: none; stroke: #3b4258; stroke-width: 1.4; }
+.cy-leg { fill: none; stroke: #1f2a4a; stroke-width: 4.6; stroke-linecap: round; stroke-linejoin: round; }
+.cy-leg.cy-far { stroke: #59627e; }
+.cy-torso { fill: none; stroke: #f2f2f2; stroke-width: 7.5; stroke-linecap: round; }
+.cy-arm { fill: none; stroke: #e7c3a3; stroke-width: 3.4; stroke-linecap: round; }
+.cy-head { fill: #e7c3a3; }
+.cy-helmet { fill: #1b2440; stroke: #1b2440; stroke-width: 2.2; stroke-linecap: round; }
+.cy-shadow { fill: rgba(20,26,44,.22); filter: blur(1.5px); }
+
+/* 학 */
+.lx-cranes { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; border-radius: inherit; }
+.lx-crane { position: absolute; top: calc(70px + var(--cy)); left: 0; width: calc(64px * var(--cs)); display: block;
+  animation: lxFly 46s linear infinite; animation-delay: var(--cd); }
+.lx-crane svg { width: 100%; overflow: visible; animation: lxGlide 7s ease-in-out infinite; }
+.cr-wing { fill: #fbfbf8; stroke: #2a2f40; stroke-width: .7; }
+.cr-neck, .cr-legs { stroke: #fbfbf8; stroke-width: 1.6; stroke-linecap: round; }
+.cr-legs { stroke: #6b6f7c; stroke-width: 1; }
+.cr-head { fill: #c42a2a; }
+
+/* ============ 16. 이동경로 · 뒤로가기 · 맨 위로 · 화면 전환 ============ */
+.crumbs { display: flex; align-items: center; gap: 14px; margin: -6px 0 18px; padding: 8px 10px 8px 8px; border-radius: 14px; flex-wrap: wrap;
+  background: rgba(255,255,255,.7); box-shadow: 0 0 0 1px rgba(20,26,44,.07) inset, 0 6px 18px -12px rgba(20,26,44,.3); backdrop-filter: blur(10px);
+  position: sticky; top: 68px; z-index: 20; animation: lxRise .5s var(--ease-soft) both; }
+:root[data-theme="dark"] .crumbs { background: rgba(12,18,34,.75); box-shadow: 0 0 0 1px rgba(214,182,122,.18) inset; }
+.crumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; list-style: none; margin: 0; padding: 0; font-size: 13.5px; min-width: 0; }
+.crumbs li { display: flex; align-items: center; gap: 4px; color: var(--muted); }
+.crumbs li + li::before { content: "›"; margin: 0 6px; color: var(--gold); }
+.crumbs li a { display: inline-flex; align-items: center; gap: 5px; color: var(--text-2); }
+.crumbs li a .ico { width: 15px; height: 15px; }
+.crumbs li [aria-current] { color: var(--text); font-weight: 700; max-width: 40vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cr-back { min-height: 34px; padding: 6px 12px; }
+.cr-back .ico { transition: transform .35s var(--ease-soft); } .cr-back:hover .ico { transform: translateX(-3px); }
+.cr-pn { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.cr-count { font-size: 12.5px; color: var(--muted); font-feature-settings: "tnum" 1; }
+.to-top { position: fixed; right: 22px; bottom: 26px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%;
+  opacity: 0; transform: translateY(14px) scale(.9); pointer-events: none; transition: opacity .45s var(--ease-soft), transform .45s var(--ease-soft); }
+.to-top .ico { transform: rotate(-90deg); }
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.view.v-fwd { animation: lxViewF .55s var(--ease-soft) both; }
+.view.v-back { animation: lxViewB .55s var(--ease-soft) both; }
+.sr-wait { animation-play-state: paused !important; }
+
+/* 물결 · 자석 · 금가루 */
+.fx-ripple { position: absolute; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(255,255,255,.55), rgba(255,255,255,0) 60%);
+  transform: scale(0); animation: lxRipple .7s var(--ease-soft) forwards; }
+.btn:not(.btn-gold) .fx-ripple { background: radial-gradient(circle, rgba(27,36,64,.16), rgba(27,36,64,0) 60%); }
+.fx-mag { transition: translate .25s var(--ease-soft), transform .3s var(--ease-soft), filter .3s; }
+.btn { transition: translate .5s var(--ease-soft), transform .3s var(--ease-soft), filter .3s var(--ease-soft), box-shadow .3s var(--ease-soft); }
+.fx-burst { position: fixed; z-index: 200; width: 0; height: 0; pointer-events: none; }
+.fx-burst i { position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; border-radius: 1px; background: linear-gradient(135deg, #f6e3b0, #b38d4c);
+  animation: lxBurst 1.1s cubic-bezier(.15,.7,.3,1) both; box-shadow: 0 0 6px rgba(214,182,122,.6); }
+.fx-burst i.c { border-radius: 50%; width: 5px; height: 5px; background: #2c3a63; box-shadow: none; }
+
+@keyframes lxKen { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.14) translate(-2%, -1.5%); } }
+@keyframes lxRideX { from { transform: translateX(-120px); } to { transform: translateX(calc(100vw + 40px)); } }
+@keyframes lxBob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-.6px) rotate(-.4deg); } }
+@keyframes lxRoad { from { background-position: 0 0; } to { background-position: -40px 0; } }
+@keyframes lxFly { 0% { transform: translateX(-90px); } 100% { transform: translateX(1500px); } }
+@keyframes lxGlide { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-14px) rotate(2deg); } }
+@keyframes lxViewF { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@keyframes lxViewB { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+@keyframes lxRipple { to { transform: scale(1); opacity: 0; } }
+@keyframes lxBurst { 0% { transform: translate(0,0) rotate(0) scale(1); opacity: 1; } 70% { opacity: 1; }
+  100% { transform: translate(var(--tx), calc(var(--ty) + 60px)) rotate(var(--r)) scale(.6); opacity: 0; } }
+
+@media (max-width: 640px) {
+  .crumbs { top: 60px; } .cr-pn span:not(.cr-count) { display: none; }
+  .lx-rider { width: 70px; } .lx-credit { top: auto; bottom: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lx-photo img, .lx-rider, .lx-rider svg, .lx-road i, .lx-crane, .lx-crane svg, .view { animation: none !important; }
+  .lx-rider { left: 62%; } .lx-crane { left: 70%; }
+  .lx-bike, .lx-star, .lx-tower circle, .lx-moonpath, .lx-l2, .lx-hero::after, .btn-gold::after, .nav a[aria-current="page"]::after, .kpi .spark, .lx-arrow .ico { animation: none !important; }
+  .lx-bike { transform: translate(780px, 263px); }
+  .rise { animation: none; }
+}
+
+/* ============ 13. 반응형 ============ */
+@media (max-width: 980px) {
+  .lx-steps { grid-template-columns: minmax(0, 1fr); margin-top: -70px; padding: 0 12px; }
+  .lx-arrow { transform: rotate(90deg); height: 18px; }
+  .lx-domains { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 640px) {
+  .lx-hero { padding: 32px 20px 130px; min-height: 0; }
+  .lx-hero h1 { font-size: 30px; }
+  .lx-num { font-size: 42px; }
+}
