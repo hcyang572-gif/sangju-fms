@@ -181,6 +181,7 @@
 
   /* ---------- 재미 요소: 금가루·물결·자석 버튼·시차·스크롤 등장 ---------- */
   function burst(x, y) {
+    try { window.dispatchEvent(new CustomEvent('sj:done')); } catch (e) {}
     if (RM) return;
     var seal = document.createElement('div'); seal.className = 'fx-seal'; seal.style.left = x + 'px'; seal.style.top = y + 'px';
     seal.innerHTML = '<svg viewBox="0 0 64 64"><circle class="s-ring" cx="32" cy="32" r="30"/><circle class="s-disc" cx="32" cy="32" r="22"/><path class="s-check" d="M22 33l7 7 14-15"/></svg>';
@@ -276,8 +277,7 @@
     var h = '<section class="hero lx-hero lx-photo-hero rise">' +
       '<div class="lx-photo" data-parallax><img src="assets/img/gyeongcheonseom.jpg" alt="상주 경천섬과 낙강교, 학전망대 전경" decoding="async"></div>' +
       '<div class="lx-haze"></div><div class="lx-glint"></div>' +
-      '<div class="lx-scrim"></div>' + G.cranes() +
-      '<div class="lx-road"><i></i></div>' + G.cyclist() +
+      '<div class="lx-scrim"></div>' +
       '<a class="lx-credit" href="https://korean.visitkorea.or.kr" target="_blank" rel="noopener">사진: 경천섬 · 한국관광공사 (공공누리 제1유형)</a>' +
       '<div class="hero-inner"><div class="lx-kicker"><span class="lx-seal">尙州</span><span>상주시 공공건축물 · 법정 유지관리 업무 안내</span></div>' +
       '<h1><span class="lx-l1">건물마다 다른 법정 의무,</span><b class="lx-l2">한 화면에서 정리합니다</b></h1>' +

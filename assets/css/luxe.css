@@ -493,6 +493,74 @@ body {
 .rs-spoke { stroke: rgba(40, 46, 66, .26); stroke-width: .45; }
 .cr2-crown { display: none; }
 
+/* ============ 19. 상주시 캐릭터 도리·수니 (입체) ============ */
+.mascots { position: fixed; inset: 0; z-index: 45; pointer-events: none; }
+.mascots.off { display: none; }
+.mascot { position: absolute; left: 0; top: 0; width: 86px; height: 104px; will-change: transform; }
+.m-fig { position: relative; width: 100%; height: 100%; pointer-events: auto; cursor: grab; touch-action: none; outline: none;
+  transform: scaleX(var(--face, 1)) rotate(var(--tilt, 0deg)); transform-origin: 50% 90%; transition: transform .5s cubic-bezier(.22,.61,.36,1);
+  filter: drop-shadow(0 10px 10px rgba(30, 24, 18, .22)) drop-shadow(0 2px 2px rgba(30, 24, 18, .18)); }
+.m-fig:active { cursor: grabbing; }
+.m-fig:focus-visible { outline: 2px solid #9c8051; outline-offset: 4px; border-radius: 20px; }
+.m-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.m-svg .m-head { transform-box: fill-box; transform-origin: 50% 90%; animation: mBreath 3.6s ease-in-out infinite; }
+.m-pupil { transform: translate(var(--ex, 0), var(--ey, 0)); transition: transform .25s ease-out; }
+.m-eye { transform-box: fill-box; transform-origin: 50% 50%; animation: mBlink 5.2s infinite; }
+.m-dori .m-eye { animation-delay: 1.3s; }
+.m-wink { animation: none; }
+.m-shadow { position: absolute; left: 50%; bottom: -6px; width: 62px; height: 12px; margin-left: -31px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(30,24,18,.32), rgba(30,24,18,0)); transform: scale(calc(1 - var(--air, 0) * .6)); opacity: calc(1 - var(--air, 0) * .7); }
+.mascot.air .m-shadow { display: none; }
+.mascot.walking .m-fig { animation: mWalk .42s ease-in-out infinite; }
+.mascot.walking .m-foot.fl { animation: mStepL .42s ease-in-out infinite; } .mascot.walking .m-foot.fr { animation: mStepR .42s ease-in-out infinite; }
+.m-foot { transform-box: fill-box; transform-origin: 50% 50%; }
+.mascot.air .m-fig { animation: mAir .6s ease-in-out infinite alternate; }
+.mascot.r-wave .m-wave, .mascot.talking .m-wave { transform-box: fill-box; transform-origin: 20% 90%; animation: mWave .5s ease-in-out 3 alternate; }
+.mascot.r-wave .m-fig { animation: mHello .7s cubic-bezier(.22,.61,.36,1); }
+.mascot.r-jump .m-fig { animation: mJump .9s cubic-bezier(.22,.61,.36,1); }
+.mascot.r-land .m-fig { animation: mLand .5s cubic-bezier(.22,.61,.36,1); }
+.mascot.r-surprise .m-fig { animation: mShake .5s ease-in-out; }
+/* 말풍선 */
+.m-bubble { position: absolute; bottom: calc(100% + 10px); left: 50%; width: max-content; max-width: 270px; padding: 11px 14px 10px; border-radius: 16px;
+  background: rgba(255,255,255,.97); color: #1b2236; font-size: 13.5px; line-height: 1.55; letter-spacing: -.01em;
+  box-shadow: 0 0 0 1px rgba(20,26,44,.08), 0 14px 34px -12px rgba(20,26,44,.45); pointer-events: auto;
+  opacity: 0; visibility: hidden; transform: translate(-50%, 8px) scale(.96); transform-origin: 50% 100%;
+  transition: opacity .35s cubic-bezier(.22,.61,.36,1), transform .35s cubic-bezier(.22,.61,.36,1), visibility .35s; }
+.m-bubble::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 14px; height: 14px; margin-left: -7px; background: inherit; transform: rotate(45deg);
+  box-shadow: 1px 1px 0 rgba(20,26,44,.06); border-radius: 0 0 4px 0; }
+.m-bubble.left { left: auto; right: -10px; transform: translate(0, 8px) scale(.96); transform-origin: 85% 100%; }
+.m-bubble.left::after { left: auto; right: 34px; }
+.m-bubble.below { bottom: auto; top: calc(100% + 10px); }
+.m-bubble.below::after { bottom: auto; top: -7px; }
+.mascot.talking .m-bubble { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); }
+.mascot.talking .m-bubble.left { transform: translate(0, 0) scale(1); }
+.m-name { font-size: 11px; font-weight: 800; color: #e46d12; letter-spacing: .02em; margin-bottom: 2px; }
+.m-suni .m-name { color: #8fa21e; }
+.m-text b { color: #1b2440; font-weight: 750; }
+.m-act { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.m-act button, .m-act a { font: 600 11.5px/1 var(--sans); padding: 6px 9px; border-radius: 999px; border: 0; cursor: pointer; text-decoration: none;
+  background: #f1efe9; color: #1b2440; box-shadow: 0 0 0 1px rgba(20,26,44,.08) inset; }
+.m-act a { background: #1b2440; color: #fff !important; }
+.m-act [data-m="hide"] { margin-left: auto; color: #868a95; background: transparent; box-shadow: none; }
+.m-dock { position: fixed; left: 18px; bottom: 22px; z-index: 44; border: 0; cursor: pointer; padding: 9px 14px; border-radius: 999px; font: 650 12.5px/1 var(--sans);
+  color: #fff; background: linear-gradient(180deg, #f59a3c, #d8670f); box-shadow: 0 8px 20px -8px rgba(216,103,15,.7), 0 1px 0 rgba(255,255,255,.4) inset;
+  opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .4s, transform .4s; }
+.m-dock.show { opacity: 1; transform: none; pointer-events: auto; }
+@keyframes mBreath { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-.8px) scale(1.012); } }
+@keyframes mBlink { 0%, 93%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@keyframes mWalk { 0%, 100% { transform: scaleX(var(--face, 1)) translateY(0) rotate(-2.5deg); } 50% { transform: scaleX(var(--face, 1)) translateY(-5px) rotate(2.5deg); } }
+@keyframes mStepL { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes mStepR { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(0); } }
+@keyframes mAir { from { transform: scaleX(var(--face, 1)) rotate(-6deg) scale(1.02, .98); } to { transform: scaleX(var(--face, 1)) rotate(6deg) scale(.98, 1.03); } }
+@keyframes mWave { from { transform: rotate(-10deg); } to { transform: rotate(22deg); } }
+@keyframes mHello { 0% { transform: scaleX(var(--face, 1)); } 35% { transform: scaleX(var(--face, 1)) translateY(-7px) scale(1.03, .97); } 100% { transform: scaleX(var(--face, 1)); } }
+@keyframes mJump { 0% { transform: scaleX(var(--face, 1)) scale(1.08, .9); } 35% { transform: scaleX(var(--face, 1)) translateY(-46px) scale(.94, 1.08) rotate(-8deg); } 70% { transform: scaleX(var(--face, 1)) translateY(0) scale(1.1, .88); } 100% { transform: scaleX(var(--face, 1)); } }
+@keyframes mLand { 0% { transform: scaleX(var(--face, 1)) scale(1.14, .84); } 60% { transform: scaleX(var(--face, 1)) scale(.96, 1.05); } 100% { transform: scaleX(var(--face, 1)); } }
+@keyframes mShake { 0%, 100% { transform: scaleX(var(--face, 1)) rotate(0); } 25% { transform: scaleX(var(--face, 1)) rotate(-10deg); } 75% { transform: scaleX(var(--face, 1)) rotate(10deg); } }
+@media (prefers-reduced-motion: reduce) { .m-svg .m-head, .m-eye, .mascot .m-fig { animation: none !important; } }
+@media (max-width: 640px) { .mascot { width: 66px; height: 80px; } .m-bubble { max-width: 220px; font-size: 12.5px; } }
+@media print { .mascots, .m-dock, .scroll-cue, .to-top { display: none !important; } }
+
 /* 스크롤 안내 */
 .scroll-cue { position: fixed; left: 50%; bottom: 22px; z-index: 39; display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px 9px 12px;
   border: 0; border-radius: 999px; cursor: pointer; font: 600 13px/1 var(--sans); color: var(--ink, #1b2440); letter-spacing: -.01em;
