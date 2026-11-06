@@ -561,6 +561,43 @@ body {
 @media (max-width: 640px) { .mascot { width: 66px; height: 80px; } .m-bubble { max-width: 220px; font-size: 12.5px; } }
 @media print { .mascots, .m-dock, .scroll-cue, .to-top { display: none !important; } }
 
+/* ============ 20. 앰비언트 뮤직 플레이어 ============ */
+.amb { position: fixed; left: 18px; bottom: 20px; z-index: 46; display: flex; align-items: center; gap: 12px; padding: 8px 10px 8px 8px;
+  border-radius: 999px; background: rgba(255,255,255,.88); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 0 0 1px rgba(20,26,44,.08) inset, 0 1px 0 #fff inset, 0 16px 36px -16px rgba(20,26,44,.45);
+  transition: padding .4s var(--ease-soft), gap .4s var(--ease-soft), box-shadow .4s; font-family: var(--sans); }
+:root[data-theme="dark"] .amb { background: rgba(12,18,34,.85); box-shadow: 0 0 0 1px rgba(214,182,122,.25) inset, 0 16px 36px -16px rgba(0,0,0,.8); color: #f2ede2; }
+.amb button { border: 0; background: none; cursor: pointer; color: inherit; padding: 0; display: grid; place-items: center; }
+.amb svg { width: 16px; height: 16px; fill: currentColor; }
+.amb-play { position: relative; width: 40px; height: 40px; border-radius: 50% !important; color: #fff !important;
+  background: linear-gradient(180deg, #2b375b, #161e36) !important; box-shadow: 0 0 0 1px rgba(156,128,81,.6), 0 1px 0 rgba(255,255,255,.2) inset, 0 6px 14px -6px rgba(20,26,44,.6); }
+.amb-play svg { width: 18px; height: 18px; }
+.amb-play::before { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 1.5px solid rgba(156,128,81,.5); opacity: 0; }
+.amb:not(.touched):not(.on) .amb-play::before { animation: ambPing 2.6s var(--ease-soft) infinite; }
+.amb .i-pause, .amb.on .i-play { display: none; } .amb.on .i-pause { display: block; }
+.amb.on .amb-play::before { opacity: 1; animation: ambSpin 6s linear infinite; border-style: dashed; }
+.amb-info { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.amb-viz { width: 60px; height: 14px; display: block; }
+.amb-txt { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.amb-name { font-size: 13px; font-weight: 750; color: var(--ink, #1b2440); white-space: nowrap; }
+:root[data-theme="dark"] .amb-name { color: #f2ede2; }
+.amb-mood { font-family: var(--display); font-style: italic; font-size: 12px; color: #9c8051; white-space: nowrap; }
+.amb-ctl { display: flex; align-items: center; gap: 6px; }
+.amb-ctl > button { width: 30px; height: 30px; border-radius: 50% !important; color: #4a4f5e; transition: background .25s, color .25s; }
+.amb-ctl > button:hover { background: rgba(20,26,44,.06); color: #1b2440; }
+.amb-vol input { width: 74px; accent-color: #1b2440; cursor: pointer; }
+.amb-hint { position: absolute; left: 6px; bottom: calc(100% + 10px); white-space: nowrap; font-size: 12px; font-weight: 600; color: #1b2440; padding: 7px 12px; border-radius: 10px;
+  background: #fff; box-shadow: 0 10px 24px -12px rgba(20,26,44,.45), 0 0 0 1px rgba(20,26,44,.06); pointer-events: none; animation: ambHint 1s var(--ease-soft) 1.2s both; }
+.amb.touched .amb-hint, .amb.on .amb-hint { opacity: 0; transform: translateY(6px); transition: opacity .5s, transform .5s; animation: none; }
+.amb.mini { gap: 6px; } .amb.mini .amb-info, .amb.mini .amb-prev, .amb.mini .amb-next, .amb.mini .amb-vol { display: none; }
+.amb.mini .amb-min svg { transform: rotate(180deg); }
+.m-dock { bottom: 82px; }
+@keyframes ambPing { 0% { opacity: .9; transform: scale(.9); } 100% { opacity: 0; transform: scale(1.5); } }
+@keyframes ambSpin { to { transform: rotate(360deg); } }
+@keyframes ambHint { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 760px) { .amb-info, .amb-vol { display: none; } }
+@media print { .amb { display: none !important; } }
+
 /* 스크롤 안내 */
 .scroll-cue { position: fixed; left: 50%; bottom: 22px; z-index: 39; display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px 9px 12px;
   border: 0; border-radius: 999px; cursor: pointer; font: 600 13px/1 var(--sans); color: var(--ink, #1b2440); letter-spacing: -.01em;
