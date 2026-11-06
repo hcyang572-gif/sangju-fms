@@ -105,6 +105,25 @@
   topBtn.type = 'button'; topBtn.className = 'btn to-top'; topBtn.setAttribute('aria-label', '맨 위로'); topBtn.innerHTML = ic('arrowRight');
   topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' }); });
   document.body.appendChild(topBtn);
+  // 스크롤 안내: 아래에 내용이 남아 있으면 표시, 다음 섹션 이름을 함께 안내
+  var cue = document.createElement('button');
+  cue.type = 'button'; cue.className = 'scroll-cue'; cue.setAttribute('aria-label', '아래로 스크롤해 더 보기');
+  cue.innerHTML = '<span class="mouse" aria-hidden="true"></span><span class="cue-t">아래로 스크롤해 더 보기</span><span class="chev" aria-hidden="true"><i></i><i></i></span>';
+  document.body.appendChild(cue);
+  function nextSectionName() {
+    var hs = main.querySelectorAll('h2, .card-title span, .lx-dl'), lim = window.innerHeight * .9;
+    for (var i = 0; i < hs.length; i++) { var t = hs[i].getBoundingClientRect().top; if (t > lim) return (hs[i].textContent || '').trim().slice(0, 18); }
+    return '';
+  }
+  function updCue() {
+    var left = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+    var show = left > 160 && !document.querySelector('.modal-root .modal');
+    cue.classList.toggle('show', show);
+    if (show) { var n = nextSectionName(); cue.querySelector('.cue-t').innerHTML = n ? '아래로 스크롤 <small>· ' + esc(n) + '</small>' : '아래로 스크롤해 더 보기'; }
+  }
+  cue.addEventListener('click', function () { window.scrollBy({ top: Math.round(window.innerHeight * .75), behavior: RM ? 'auto' : 'smooth' }); });
+  var cueT; window.addEventListener('scroll', function () { clearTimeout(cueT); cueT = setTimeout(updCue, 60); }, { passive: true });
+  window.addEventListener('resize', updCue);
   window.addEventListener('scroll', function () { topBtn.classList.toggle('show', window.scrollY > 520); }, { passive: true });
 
   /* ---------- 공공데이터(건축물대장) 출처 · 실시간 조회 표시 ---------- */
@@ -163,6 +182,10 @@
   /* ---------- 재미 요소: 금가루·물결·자석 버튼·시차·스크롤 등장 ---------- */
   function burst(x, y) {
     if (RM) return;
+    var seal = document.createElement('div'); seal.className = 'fx-seal'; seal.style.left = x + 'px'; seal.style.top = y + 'px';
+    seal.innerHTML = '<svg viewBox="0 0 64 64"><circle class="s-ring" cx="32" cy="32" r="30"/><circle class="s-disc" cx="32" cy="32" r="22"/><path class="s-check" d="M22 33l7 7 14-15"/></svg>';
+    document.body.appendChild(seal);
+    setTimeout(function () { seal.classList.add('out'); }, 1100); setTimeout(function () { seal.remove(); }, 1700);
     var wrap = document.createElement('div'); wrap.className = 'fx-burst'; wrap.style.left = x + 'px'; wrap.style.top = y + 'px';
     for (var i = 0; i < 22; i++) {
       var p = document.createElement('i'), an = Math.random() * Math.PI * 2, dist = 40 + Math.random() * 70;
@@ -186,7 +209,7 @@
     document.addEventListener('pointermove', function (e) {
       var m = e.target.closest && e.target.closest('.btn-gold, .lx-cta .btn');
       document.querySelectorAll('.fx-mag').forEach(function (x) { if (x !== m) { x.classList.remove('fx-mag'); x.style.translate = ''; } });
-      if (m) { var r = m.getBoundingClientRect(); m.classList.add('fx-mag'); m.style.translate = ((e.clientX - r.left - r.width / 2) * .12).toFixed(1) + 'px ' + ((e.clientY - r.top - r.height / 2) * .18).toFixed(1) + 'px'; }
+      if (m) { var r = m.getBoundingClientRect(); m.classList.add('fx-mag'); m.style.translate = ((e.clientX - r.left - r.width / 2) * .05).toFixed(1) + 'px ' + ((e.clientY - r.top - r.height / 2) * .08).toFixed(1) + 'px'; }
       var hero = e.target.closest && e.target.closest('.lx-photo-hero');
       if (hero) {
         var hr = hero.getBoundingClientRect(), px = (e.clientX - hr.left) / hr.width - .5, py = (e.clientY - hr.top) / hr.height - .5;
@@ -210,6 +233,7 @@
   /* 렌더 후 애니메이션 */
   function after() {
     scrollReveal();
+    setTimeout(function () { try { updCue(); } catch (e) {} }, 400);
     try { liveAfter(route()); } catch (e) { console.warn(e); }
     main.querySelectorAll('[data-count]').forEach(function (el) {
       var to = +el.getAttribute('data-count') || 0;
@@ -251,6 +275,7 @@
 
     var h = '<section class="hero lx-hero lx-photo-hero rise">' +
       '<div class="lx-photo" data-parallax><img src="assets/img/gyeongcheonseom.jpg" alt="상주 경천섬과 낙강교, 학전망대 전경" decoding="async"></div>' +
+      '<div class="lx-haze"></div><div class="lx-glint"></div>' +
       '<div class="lx-scrim"></div>' + G.cranes() +
       '<div class="lx-road"><i></i></div>' + G.cyclist() +
       '<a class="lx-credit" href="https://korean.visitkorea.or.kr" target="_blank" rel="noopener">사진: 경천섬 · 한국관광공사 (공공누리 제1유형)</a>' +

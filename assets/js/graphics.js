@@ -311,6 +311,86 @@
     return '<div class="lx-cranes" aria-hidden="true">' + bird(0, 1, 0) + bird(1, .78, 1.6) + bird(2, .62, 3.1) + '</div>';
   }
 
+  /* ---------- v2: 사실적 로드바이크 라이더 실루엣 (에어로 자세 · 관절 IK · 실제 비율) ---------- */
+  function cyclist2() {
+    var CAD = 1.15, WHEEL = .5, N = 16;
+    var RA = [40, 84], FA = [150, 84], BB = [86, 90], R = 33;
+    var HIP = [72, 31], L1 = 43, L2 = 41, CR = 16.5;
+    function leg(theta) {
+      var P = [BB[0] + CR * Math.cos(theta), BB[1] + CR * Math.sin(theta)];
+      var dx = P[0] - HIP[0], dy = P[1] - HIP[1], d = Math.min(Math.hypot(dx, dy), L1 + L2 - .2);
+      var a = Math.acos((L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)), b = Math.atan2(dy, dx);
+      var K = [HIP[0] + L1 * Math.cos(b - a), HIP[1] + L1 * Math.sin(b - a)];
+      // 발목: 페달 위치에서 발끝은 약간 아래로 (실제 페달링의 앵클링)
+      var ank = -0.25 + 0.35 * Math.sin(theta + 0.6);
+      var heel = [P[0] - 6 * Math.cos(ank), P[1] - 6 * Math.sin(ank) - 2.5], toe = [P[0] + 9 * Math.cos(ank), P[1] + 9 * Math.sin(ank)];
+      var f = function (p) { return p[0].toFixed(2) + ' ' + p[1].toFixed(2); };
+      return { thigh: 'M' + f(HIP) + 'L' + f(K), shin: 'M' + f(K) + 'L' + f(heel), foot: 'M' + f(heel) + 'L' + f(toe) };
+    }
+    function vals(off, k) { var v = []; for (var i = 0; i <= N; i++) v.push(leg(off + i / N * Math.PI * 2)[k]); return v.join(';'); }
+    function legG(off, cls) {
+      return '<g class="' + cls + '">' + ['thigh', 'shin', 'foot'].map(function (k) {
+        return '<path class="rs-' + k + '"><animate attributeName="d" values="' + vals(off, k) + '" dur="' + CAD + 's" repeatCount="indefinite"/></path>';
+      }).join('') + '</g>';
+    }
+    function wheel(c) {
+      var sp = ''; for (var i = 0; i < 24; i++) { var an = i / 24 * Math.PI * 2; sp += 'M' + c[0] + ' ' + c[1] + 'L' + (c[0] + (R - 3) * Math.cos(an)).toFixed(2) + ' ' + (c[1] + (R - 3) * Math.sin(an)).toFixed(2); }
+      return '<g class="rs-wheel"><circle class="rs-blur" cx="' + c[0] + '" cy="' + c[1] + '" r="' + (R - 3) + '"/>' +
+        '<g><path class="rs-spoke" d="' + sp + '"/><animateTransform attributeName="transform" type="rotate" from="0 ' + c[0] + ' ' + c[1] + '" to="360 ' + c[0] + ' ' + c[1] + '" dur="' + WHEEL + 's" repeatCount="indefinite"/></g>' +
+        '<circle class="rs-rim" cx="' + c[0] + '" cy="' + c[1] + '" r="' + (R - 2.6) + '"/><circle class="rs-tire" cx="' + c[0] + '" cy="' + c[1] + '" r="' + R + '"/><circle class="rs-hub" cx="' + c[0] + '" cy="' + c[1] + '" r="2.6"/></g>';
+    }
+    var frame = 'M' + RA + 'L86 90L136 54L132 40L76 43ZM86 90L76 43M76 43L' + RA + 'M132 40L136 54L' + FA;
+    var crank = '<g><path class="rs-crank" d="M86 90l16.5 0M86 90l-16.5 0"/><circle class="rs-ring" cx="86" cy="90" r="9"/>' +
+      '<animateTransform attributeName="transform" type="rotate" from="0 86 90" to="360 86 90" dur="' + CAD + 's" repeatCount="indefinite"/></g>';
+    return '<div class="lx-rider" aria-hidden="true"><svg viewBox="0 0 200 124" focusable="false">' +
+      '<ellipse class="rs-shadow" cx="96" cy="119" rx="78" ry="3.4"/>' +
+      legG(Math.PI, 'rs-far') +
+      '<path class="rs-arm rs-far" d="M120 23Q127 31 139 38"/>' +
+      wheel(RA) + wheel(FA) +
+      '<path class="rs-frame" d="' + frame + '"/>' +
+      '<path class="rs-post" d="M76 43L73 33"/><path class="rs-saddle" d="M62 32.2Q71 30 82 32.6"/>' +
+      '<path class="rs-stem" d="M132 40L141 37"/><path class="rs-bar" d="M141 37Q147 37 147 44Q147 51 141 52"/>' +
+      '<path class="rs-chain" d="M' + RA + 'L86 81M' + RA + 'L86 99"/>' + crank +
+      '<g class="rs-body"><animateTransform attributeName="transform" type="translate" values="0 0;0 .55;0 0" dur="' + (CAD / 2) + 's" repeatCount="indefinite"/>' +
+      '<path class="rs-torso" d="M70 31Q96 18 121 21"/>' +
+      '<path class="rs-head" d="M124 16Q125 7.5 134 7.2Q143 7.4 145 13.5L139 15Q137 21 130 21.5Q125 21 124 16Z"/>' +
+      '<path class="rs-arm" d="M120 23Q128 32 140 38"/></g>' +
+      legG(0, 'rs-near') +
+      '</svg></div>';
+  }
+  /* ---------- v2: 사실적 두루미(학) 비행 실루엣 — 연속 날개각 보간 ---------- */
+  function cranes2() {
+    // 날개: 어깨(0,0)에서 바깥으로, 앞전/뒷전 + 칼깃(손가락) 5개. 점 개수 고정 → 모핑 가능
+    var lead = [[0, 0], [10, -1.2], [22, -1.6], [34, -.6], [44, 1.2]];
+    var fingers = [[50, 4], [46, 5.4], [51.5, 7.8], [46, 8.6], [51, 11.4], [45, 11.8], [48.5, 14.6], [42, 14], [44, 16.8], [37, 15.6]];
+    var trail = [[28, 15.2], [18, 14.6], [8, 12.6], [0, 9]];
+    var shape = lead.concat(fingers, trail);
+    function wingAt(a) { // a: 날개 상하각(rad). 화면: x = 뒤로 스윕, y = 위아래
+      var ca = Math.cos(a), sa = Math.sin(a);
+      return 'M' + shape.map(function (p) {
+        var span = p[0], chord = p[1];
+        span *= 1.12; chord *= 1.7;
+        var x = -span * 0.3 - chord * 0.75, y = -span * sa + chord * 0.62 * ca;
+        return (60 + x).toFixed(2) + ' ' + (28 + y).toFixed(2);
+      }).join('L') + 'Z';
+    }
+    var seq = [], K = 18;
+    for (var i = 0; i <= K; i++) { var t = i / K; seq.push(wingAt(0.95 * Math.cos(t * Math.PI * 2) + 0.12 * Math.sin(t * Math.PI * 4) - 0.05)); }
+    var nearW = seq.join(';');
+    var farW = seq.slice(2).concat(seq.slice(1, 3)).join(';');
+    // 몸통(통통한 가슴·배) → 가늘고 긴 목 → 작은 머리 → 부리, 짧은 꼬리깃
+    var body = 'M26 29.5L33 27.4Q40 24.2 52 23.6Q64 23.2 72 25.4Q79 27 85 26.2Q93 24.8 100 24.2Q104 23.6 107.5 24.4L119 26.2L107.5 27.4Q103.5 28.6 99.5 28.4Q91 28.6 84 30.4Q77 33.6 66 35.6Q52 37.4 40 35.2Q32 33.6 26 31.6Z';
+    var legs = 'M30 31.4L2 33.2M30 32.2L2 34.6M2 33.2l-2.4 1M2 34.6l-2.4 1.2';
+    function bird(i, w, top, d, dur, flap) {
+      return '<div class="lx-crane" style="--w:' + w + 'px;--top:' + top + 'px;--cd:' + d + 's;--fd:' + dur + 's"><svg viewBox="0 -10 122 72" focusable="false">' +
+        '<path class="cr2-wing cr2-far"><animate attributeName="d" values="' + farW + '" dur="' + flap + 's" repeatCount="indefinite"/></path>' +
+        '<path class="cr2-legs" d="' + legs + '"/><path class="cr2-body" d="' + body + '"/><circle class="cr2-crown" cx="105.4" cy="25.2" r="1.3"/>' +
+        '<path class="cr2-wing"><animate attributeName="d" values="' + nearW + '" dur="' + flap + 's" repeatCount="indefinite"/></path>' +
+        '</svg></div>';
+    }
+    return '<div class="lx-cranes" aria-hidden="true">' + bird(0, 118, 64, 0, 58, 1.9) + bird(1, 86, 112, 9, 66, 2.1) + '</div>';
+  }
+
   function heroOld() {
     var kam = '';
     function waves(y, amp, cls, dur) {
@@ -470,5 +550,5 @@
       '</svg>';
   }
 
-  global.SJG = { building: building, icon: icon, logo: logo, hero: hero, cyclist: cyclist, cranes: cranes, section: section, empty: empty, ring: ring, CATEGORY_KEYS: Object.keys(B) };
+  global.SJG = { building: building, icon: icon, logo: logo, hero: hero, cyclist: cyclist2, cranes: cranes2, section: section, empty: empty, ring: ring, CATEGORY_KEYS: Object.keys(B) };
 })(window);
